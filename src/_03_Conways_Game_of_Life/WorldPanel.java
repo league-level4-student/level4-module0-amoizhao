@@ -1,5 +1,6 @@
 package _03_Conways_Game_of_Life;
 import java.awt.Color;
+
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -11,6 +12,8 @@ import java.util.Random;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import _02_Pixel_Art.Pixel;
+
 public class WorldPanel extends JPanel implements MouseListener, ActionListener {
 	private static final long serialVersionUID = 1L;
 	private int cellsPerRow;
@@ -20,7 +23,7 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 	
 	//1. Create a 2D array of Cells. Do not initialize it.
 
-	
+	Cell[][] cells;
 	
 	public WorldPanel(int w, int h, int cpr) {
 		setPreferredSize(new Dimension(w, h));
@@ -29,25 +32,45 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 		this.cellsPerRow = cpr;
 	
 		//2. Calculate the cell size.
+		cellSize = w*h;
 		
 		//3. Initialize the cell array to the appropriate size.
-		
+		cells = new Cell[cellSize][cellSize];
 		//3. Iterate through the array and initialize each cell.
 		//   Don't forget to consider the cell's dimensions when 
 		//   passing in the location.
-		
+		for(int i = 0; i < cells.length; i++) {
+			for(int j = 0; j < cells[i].length; j++) {
+				cells[i][j] = new Cell(w, h, cellSize);
+			}
+		}
 	}
 	
 	public void randomizeCells() {
 		//4. Iterate through each cell and randomly set each
 		//   cell's isAlive memeber to true of false
-		
+		for(int i = 0; i < cells.length; i++) {
+			for(int j = 0; j < cells[i].length; j++) {
+				Random rand = new Random();
+				if(rand.nextInt(1) == 0) {
+					cells[i][j].isAlive = false;
+				}
+				if(rand.nextInt(1) == 1) {
+					cells[i][j].isAlive = true;
+				}
+				
+			}
+		}
 		repaint();
 	}
 	
 	public void clearCells() {
 		//5. Iterate through the cells and set them all to dead.
-		
+		for(int i = 0; i < cells.length; i++) {
+			for(int j = 0; j < cells[i].length; j++) {
+				cells[i][j].isAlive = false;
+			}
+		}
 		repaint();
 	}
 	
@@ -66,7 +89,11 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 	@Override
 	public void paintComponent(Graphics g) {
 		//6. Iterate through the cells and draw them all
-		
+		for(int i = 0; i < cells.length; i++) {
+			for(int j = 0; j < cells[i].length; j++) {
+				g.drawRect(x, y, cellSize, cellSize);
+			}
+		}
 		
 		
 		// draws grid
