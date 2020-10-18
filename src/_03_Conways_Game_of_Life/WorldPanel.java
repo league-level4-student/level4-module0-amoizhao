@@ -42,7 +42,7 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 		// passing in the location.
 		for (int i = 0; i < cells.length; i++) {
 			for (int j = 0; j < cells[i].length; j++) {
-				cells[i][j] = new Cell(w, h, cellSize);
+				cells[i][j] = new Cell(w*cellSize, h*cellSize, cellSize);
 			}
 		}
 	}
