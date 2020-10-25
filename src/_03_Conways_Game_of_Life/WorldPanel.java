@@ -42,7 +42,7 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 		// passing in the location.
 		for (int i = 0; i < cells.length; i++) {
 			for (int j = 0; j < cells[i].length; j++) {
-				cells[i][j] = new Cell(w*cellSize, h*cellSize, cellSize);
+				cells[i][j] = new Cell(w * cellSize, h * cellSize, cellSize);
 			}
 		}
 	}
@@ -92,7 +92,7 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 		// 6. Iterate through the cells and draw them all
 		for (int i = 0; i < cells.length; i++) {
 			for (int j = 0; j < cells[i].length; j++) {
-				g.drawRect(i * cellSize, j * cellSize, cellSize, cellSize);
+				cells[i][j].draw(g);
 			}
 		}
 
@@ -130,24 +130,34 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 	// living neighbors there are of the
 	// cell identified by x and y
 	public int getLivingNeighbors(int x, int y) {
-		int living = 0;
-		for (int i = -1; i < 2; i++) {
-			if (cells[x - 1][y + i].isAlive) {
-				living++;
-			}
+		Neighbors check = new Neighbors(cells);
+		if (x > 0 && x < cells.length-1 && y > 0 && y < cells.length-1) {
+			check.leftNeighbor(x, y);
+			check.xcenter(x, y);
+			check.rightNeighbor(x, y);
+		} else if (x == 0 && y > 0 && y < cells.length-1) {
+			check.xcenter(x, y);
+			check.rightNeighbor(x, y);
+		} else if (x == cells.length-1 && y > 0 && y < cells.length-1) {
+			check.leftNeighbor(x, y);
+			check.xcenter(x, y);
+		} else if (y == 0 && x > 0 && x < cells.length-1) {
+			check.ycenter(x, y);
+			check.lowerNeighbor(x, y);
+		} else if (y == cells.length-1 && x > 0 && x < cells.length-1) {
+			check.topNeighbor(x, y);
+			check.topNeighbor(x, y);
+		} else if (x == 0 && y == 0) {
+			check.topleft(x, y);
+		} else if (x == cells.length-1 && y == 0) {
+			check.topright(x, y);
+		} else if (x == 0 && y == cells.length-1) {
+			check.bottomleft(x, y);
+		} else if (x == cells.length-1 && y == cells.length-1) {
+			check.bottomright(x, y);
 		}
-		for (int i = -1; i < 2; i += 2) {
-			if (cells[x][y + i].isAlive) {
-				living++;
-			}
-		}
-		for (int i = -1; i < 2; i++) {
-			if (cells[x + 1][y + i].isAlive) {
-				living++;
-			}
-		}
-		if (living <= 8) {
-			return living;
+		if (check.living <= 8) {
+			return check.living;
 		}
 		return 0;
 	}
@@ -176,7 +186,7 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 		// the isAlive variable for that cell.
 		int distance = 500 / (cellsPerRow);
 		for (int i = 1; i < cells.length; i++) {
-			if (e.getX() <= 500/ (distance * i) && e.getX() >= 500/ (distance * (i - 1))) {
+			if (e.getX() <= 500 / (distance * i) && e.getX() >= 500 / (distance * (i - 1))) {
 				cells[e.getX() / (distance * i)][e.getY() / (distance * i)].isAlive = true;
 			}
 		}
@@ -194,4 +204,5 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 	public void actionPerformed(ActionEvent e) {
 		step();
 	}
+
 }

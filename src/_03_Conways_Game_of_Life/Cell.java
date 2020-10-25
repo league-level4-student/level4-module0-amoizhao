@@ -14,7 +14,7 @@ public class Cell implements Drawable{
 	public Cell(int x, int y, int size) {
 		this.x = x;
 		this.y = y;
-		this.cellSize = size;
+		this.cellSize = size; 
 	}
 	
 	//11. Complete tue liveOrDie method
