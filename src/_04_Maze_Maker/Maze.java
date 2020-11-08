@@ -8,21 +8,21 @@ public class Maze {
 	Cell[][] cells;
 	private int width;
 	private int height;
-
+ 
 	public Maze(int w, int h) {
 		this.width = w;
 		this.height = h;
-
+ 
 		//2. Initialize the cells using the width and height varibles
-		for (int i = 0; i < cells.length; i++) {
-			for (int j = 0; j < cells[i].length; j++) {
+		for (int i = 0; i < cells.length-1; i++) {
+			for (int j = 0; j < cells[i].length-1; j++) {
 				cells[i][j] = new Cell(width, height);
 			}
 		}
 		//3. Iterated through each cell and initialize it
 		//   using i and j as the location
-		for (int i = 0; i < cells.length; i++) {
-			for (int j = 0; j < cells[i].length; j++) {
+		for (int i = 0; i < cells.length-1; i++) {
+			for (int j = 0; j < cells[i].length-1; j++) {
 				cells[i][j].setX(i*w);
 				cells[i][j].setX(j*h);
 			}

@@ -10,7 +10,7 @@ public class Cell {
 	private int y;
 	
 	private int size = 100;
-	
+	 
 	private boolean visited;
 	
 	private boolean northWall;

@@ -12,7 +12,7 @@ public class MazeDisplay extends JPanel{
 	public static final int HEIGHT = 800;
 	
 	private JFrame window;
-	
+	 
 	private Maze maze;
 	
 	MazeDisplay(){

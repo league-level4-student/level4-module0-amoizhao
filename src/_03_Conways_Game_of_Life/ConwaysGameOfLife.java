@@ -30,7 +30,7 @@ public class ConwaysGameOfLife extends JPanel implements ActionListener{
 	
 	public static void main(String[] args) {
 		new ConwaysGameOfLife().launchGame();
-	}
+	} 
 	
 	public void launchGame() {
 		//build the window and start the simulation

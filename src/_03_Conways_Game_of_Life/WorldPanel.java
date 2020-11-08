@@ -25,7 +25,7 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 
 	// 1. Create a 2D array of Cells. Do not initialize it.
 
-	Cell[][] cells;
+	Cell[][] cells; 
 
 	public WorldPanel(int w, int h, int cpr) {
 		setPreferredSize(new Dimension(w, h));
@@ -115,11 +115,7 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 		// 8. check if each cell should live or die
 		for (int i = 0; i < cells.length; i++) {
 			for (int j = 0; j < cells[i].length; j++) {
-				if (livingNeighbors[i][j] >= 2 && livingNeighbors[i][j] <= 3) {
-					cells[i][j].isAlive = true;
-				} else {
-					cells[i][j].isAlive = false;
-				}
+				cells[i][j].liveOrDie(livingNeighbors[i][j]);
 			}
 		}
 
@@ -131,8 +127,9 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 	// living neighbors there are of the
 	// cell identified by x and y
 	public int getLivingNeighbors(int x, int y) {
+	
 		int living = 0;
-		if (x > 0 && x < cells.length && y > 0 && y < cells.length) {
+		if ((x > 0 && x < cells.length-1) && (y > 0 && y < cells.length-1)) {
 			living+=leftNeighbor(x, y);
 			living+=xcenter(x, y);
 			living+=rightNeighbor(x, y);
@@ -160,7 +157,7 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 		if ( living <= 8) {
 			return living;
 		}
-		return 0;
+		return 0; 
 	}
 
 	@Override
@@ -185,10 +182,10 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 		// 10. Use e.getX() and e.getY() to determine
 		// which cell is clicked. Then toggle
 		// the isAlive variable for that cell.
-		for (int i = 1; i < cells.length; i++) {
-			for (int j = 1; j < cells.length; j++) {
+		for (int i = 0; i < cells.length; i++) {
+			for (int j = 0; j < cells.length; j++) {
 				Cell cl = cells[i][j];
-				if (e.getX() > cl.getX() && e.getX() < cl.getX()+cellSize && e.getY() > cl.getY() && e.getY() < cl.getY()+cellSize) {
+				if (e.getX() > cl.getX() && e.getX() < (cl.getX()+cellSize) && e.getY() > cl.getY() && e.getY() < (cl.getY()+cellSize)) {
 					cl.isAlive = true;
 				}
 			}
