@@ -18,9 +18,9 @@ public class Maze {
 		
 		//3. Iterated through each cell and initialize it
 		//   using i and j as the location
-		for (int i = 0; i < cells.length-1; i++) {
-			for (int j = 0; j < cells[i].length-1; j++) {
-				cells[i][j] = new Cell(j*width, i*height);
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < height; j++) {
+				cells[i][j] = new Cell(i,j);
 			}
 		}
 	}
