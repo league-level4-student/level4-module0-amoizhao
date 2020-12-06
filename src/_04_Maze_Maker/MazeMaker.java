@@ -39,7 +39,7 @@ public class MazeMaker {
 		// B. Get an ArrayList of unvisited neighbors using the current cell and the
 		// method below
 		ArrayList<Cell> list = getUnvisitedNeighbors(currentCell);
-		System.out.println(list);
+
 		// C. if has unvisited neighbors,
 		if (list.size() > 0) {
 			// C1. select one at random.
@@ -65,7 +65,7 @@ public class MazeMaker {
 				// D1b. make that the current cell
 
 				// D1c. call the selectNextPath method with the current cell
-				System.out.println("hehe");
+				
 				selectNextPath(currentCell);
 			}
 			
@@ -104,6 +104,7 @@ public class MazeMaker {
 		cells = new ArrayList<Cell>();
 
 		if (c.getX() > 0 && c.getX() < width - 1 && c.getY() > 0 && c.getY() < height - 1) {
+			System.out.println("centers");
 			top(c);
 			right(c);
 			left(c);
@@ -149,21 +150,21 @@ public class MazeMaker {
 	}
 
 	private static void left(Cell c) {
-		if (!maze.getCell(c.getX() - 1, c.getY()).hasBeenVisited() == false) {
+		if (maze.getCell(c.getX() - 1, c.getY()).hasBeenVisited() == false) {
 			cells.add(maze.getCell(c.getX() - 1, c.getY()));
 			System.out.println("left");
 		}
 	}
 
 	private static void top(Cell c) {
-		if (!maze.getCell(c.getX(), c.getY() - 1).hasBeenVisited() == false) {
+		if (maze.getCell(c.getX(), c.getY() - 1).hasBeenVisited() == false) {
 			cells.add(maze.getCell(c.getX(), c.getY() - 1));
 			System.out.println("top");
 		}
 	}
 
 	private static void bottom(Cell c) {
-		if (!maze.getCell(c.getX(), c.getY() + 1).hasBeenVisited() == false) {
+		if (maze.getCell(c.getX(), c.getY() + 1).hasBeenVisited() == false) {
 			cells.add(maze.getCell(c.getX(), c.getY() + 1));
 			System.out.println("bottom");
 		}
