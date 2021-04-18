@@ -16,7 +16,7 @@ public class GridPanel extends JPanel {
 	private int pixelHeight;
 	private int rows;
 	private int cols;
-
+ 
 	private JButton saveButton = new JButton("save");
 
 	// 1. Create a 2D array of pixels. Do not initialize it yet.
